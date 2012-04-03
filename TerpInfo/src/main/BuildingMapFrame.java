@@ -1,17 +1,23 @@
 package main;
 
+import java.awt.BasicStroke;
 import java.awt.BorderLayout;
+import java.awt.Canvas;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.awt.geom.Line2D;
+import java.awt.geom.Ellipse2D;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
-import javax.swing.ImageIcon;
+import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
@@ -25,10 +31,10 @@ import javax.swing.SwingConstants;
 
 public class BuildingMapFrame implements ItemListener, ActionListener {
 
+	DrawingCanvas k = new DrawingCanvas( );
 	JFrame mainFrame;
 	private JTextField textField;
 	JCheckBox chckbxBathrooms;
-	JLabel label_1, label_2, label_3, label_4, label_5;
 	JLayeredPane panel_1;
 	JButton btnBack, btnSearch, btnSecondFloor;
 	
@@ -177,64 +183,24 @@ public class BuildingMapFrame implements ItemListener, ActionListener {
 		splitPane.setRightComponent(panel_1);
 		panel_1.setLayout(new BorderLayout(0, 0));
 		
-		label_1 = new JLabel("");
-		label_1.setHorizontalAlignment(SwingConstants.CENTER);
-		label_1.setIcon(new ImageIcon(BuildingMapFrame.class.getResource("/images/firstFloor.jpg")));
-		
-		label_2 = new JLabel("");
-		label_2.setHorizontalAlignment(SwingConstants.CENTER);
-		label_2.setIcon(new ImageIcon(BuildingMapFrame.class.getResource("/images/location.jpg" )));
-		label_2.setVisible( false );
-		label_2.setBounds( 0, 0, 50, 50 );
-		
-		label_3 = new JLabel("");
-		label_3.setHorizontalAlignment(SwingConstants.CENTER);
-		label_3.setIcon(new ImageIcon(BuildingMapFrame.class.getResource("/images/location.jpg")));
-		label_3.setVisible( false );
-		label_3.setBounds( 0, 0, 50, 50 );
-		
-		label_4 = new JLabel("");
-		label_4.setHorizontalAlignment(SwingConstants.CENTER);
-		label_4.setIcon(new ImageIcon(BuildingMapFrame.class.getResource("/images/lineup.jpg")));
-		label_4.setVisible( false );
-		label_4.setBounds( 0, 0, 5, 50 );
-		
-		label_5 = new JLabel("");
-		label_5.setHorizontalAlignment(SwingConstants.CENTER);
-		label_5.setIcon(new ImageIcon(BuildingMapFrame.class.getResource("/images/lineright.jpg")));
-		label_5.setVisible( false );
-		label_5.setBounds( 0, 0, 50, 5 );
-		
 		btnSecondFloor = new JButton( "View Second Floor" );
 		btnSecondFloor.addActionListener( this );
 		btnSecondFloor.setHorizontalAlignment(SwingConstants.CENTER);
 		btnSecondFloor.setBounds( 470, 110, 150, 40 );
 		
+
 		panel_1.add( btnSecondFloor );
-		panel_1.add( label_5 );
-		panel_1.add( label_4 );
-		panel_1.add( label_3 );
-		panel_1.add( label_2 );
-		panel_1.add(label_1);
+		panel_1.add( k );
+		k.repaint();
 	}
 	
 	public void itemStateChanged( ItemEvent e ) {
 		if( e.getSource() == chckbxBathrooms ) {
-			if( chckbxBathrooms.isSelected() ) {
-				Point label1start = panel_1.getLocationOnScreen();
-				//this is static
-				//the window will be resized
-				//DON'T use absolute values
-				//seriously
-				label_2.setBounds( (int)label1start.getX() + 140, (int)label1start.getY() + 250, 50, 50 );
-				label_2.setVisible( true );
-				
-				label_3.setBounds( (int)label1start.getX() + 125, (int)label1start.getY() + 180, 50, 50 );
-				label_3.setVisible( true );
+			if( chckbxBathrooms.isSelected() ) {				
+				k.repaint();
 			}
-			else {
-				label_2.setVisible( false );
-				label_3.setVisible( false );
+			else {	
+				k.repaint();
 			}
 		}
 	}
@@ -246,17 +212,11 @@ public class BuildingMapFrame implements ItemListener, ActionListener {
 			TerpInfo.instance.getMainFrame().requestFocus();
 		}
 		else if( e.getSource() == btnSecondFloor ) {
-			label_1.setIcon(new ImageIcon(BuildingMapFrame.class.getResource("/images/secondFloor.jpg")));
+			//set img in drawcanvas to second floor
 		}
 		else if( e.getSource() == btnSearch ) {
 			if( textField.getText().equals( "1115" ) ) {
-				Point label1start = panel_1.getLocationOnScreen();
-				
-				label_4.setBounds( (int)label1start.getX() + 205, (int)label1start.getY() + 350, 5, 110 );
-				label_5.setBounds( (int)label1start.getX() + 205, (int)label1start.getY() + 350, 250, 5 );
-				
-				label_4.setVisible( true );
-				label_5.setVisible( true );
+				k.repaint();
 			}
 			else {
 				JOptionPane.showMessageDialog( mainFrame, "Room not found!" );
@@ -268,4 +228,45 @@ public class BuildingMapFrame implements ItemListener, ActionListener {
 		return mainFrame;
 	}
 	
+	
+	class DrawingCanvas extends Canvas {
+		BufferedImage img;
+		
+	    public DrawingCanvas() {
+	      
+	      try {
+			img = ImageIO.read(BuildingMapFrame.class.getResource("/images/firstFloor.jpg"));
+			setSize( img.getWidth(), img.getHeight() );
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    }
+
+	    public void paint(Graphics g) {
+	      Graphics2D g2D = (Graphics2D) g;
+	      
+	      g2D.drawImage( img, 0, 0, null );
+	      
+	      BasicStroke stroke = new BasicStroke(4f);
+	      g2D.setStroke(stroke);
+	      
+	      if( chckbxBathrooms.isSelected() ) {
+	    	  g2D.setColor( Color.blue );
+	    	  g2D.draw( new Ellipse2D.Float(180f, 190f, 20f, 20f));
+	    	  g2D.fill( new Ellipse2D.Float(180f, 190f, 20f, 20f) );
+	    	  g2D.draw( new Ellipse2D.Float(170f, 130f, 20f, 20f));
+	    	  g2D.fill( new Ellipse2D.Float(170f, 130f, 20f, 20f) );
+	      }
+	      
+	      switch( Integer.valueOf( textField.getText() ) ) {
+	      case 1115:
+		      g2D.setColor( Color.red );
+	    	  g2D.drawLine( 240, 390, 240, 290 );
+	    	  g2D.drawLine( 240, 290, 500, 290 );
+	    	  break;
+	      }
+	      
+	    }
+	  }
 }
