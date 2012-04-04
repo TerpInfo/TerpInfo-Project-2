@@ -39,7 +39,8 @@ public class TerpInfo implements ActionListener {
 		
 		fMainFrame = new JFrame( );
 		fMainFrame.setUndecorated( true );
-		fMainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);  
+		//fMainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);  		
+		fMainFrame.setSize( 1024, 768 );
 		fMainFrame.getContentPane().setLayout( new java.awt.GridLayout( 3, 3 ) );
 		fMainFrame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
 
@@ -93,7 +94,7 @@ public class TerpInfo implements ActionListener {
 		bAVW.addActionListener( this );
 		fMainFrame.getContentPane().add( bAVW );
 		
-		bInternet = new JButton( "Internet" );
+		bInternet = new JButton( "TerpMail" );
 		bInternet.addActionListener( this );
 		fMainFrame.getContentPane().add( bInternet );
 

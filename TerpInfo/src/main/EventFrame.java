@@ -14,9 +14,8 @@ public class EventFrame implements ActionListener {
 	
 	public EventFrame( ) {
 		mainFrame = new JFrame( );
-		//mainFrame.setUndecorated( true );	
-		//mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);  
-		mainFrame.setSize( 438, 380 );
+		mainFrame.setUndecorated( true );			
+		mainFrame.setSize( 1024, 768 );
 		mainFrame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
 		mainFrame.getContentPane().setLayout(new BorderLayout(0, 0));
 		

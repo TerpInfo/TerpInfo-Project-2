@@ -21,12 +21,13 @@ public class AVWFrame implements ActionListener {
 	JButton btnInside, btnOutside;
 	private JLabel label;
 	private JLabel lblOutsidePic;
+	private JButton btnBack;
 
 	public AVWFrame( ) {
 		mainFrame = new JFrame( );
-		mainFrame.setUndecorated( true );	
-		//mainFrame.setSize( 400, 400 );
-		mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);  
+		mainFrame.setUndecorated( true );		
+		mainFrame.setSize( 1024, 768 );
+		//mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);  
 		mainFrame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
 		
 		JSplitPane splitPane = new JSplitPane();
@@ -37,9 +38,9 @@ public class AVWFrame implements ActionListener {
 		splitPane.setLeftComponent(panel);
 		GridBagLayout gbl_panel = new GridBagLayout();
 		gbl_panel.columnWidths = new int[]{60, 0};
-		gbl_panel.rowHeights = new int[]{0, 60, 60, 45, 0, 0, 0, 0, 0};
+		gbl_panel.rowHeights = new int[]{0, 60, 60, 45, 0, 0, 0, 0, 0, 0};
 		gbl_panel.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
 		
 		JLabel lblRoute = new JLabel("Route");
@@ -108,9 +109,20 @@ public class AVWFrame implements ActionListener {
 		//Screw it Java layouts, place-holder to force size
 		label = new JLabel("                                                                             ");
 		GridBagConstraints gbc_label = new GridBagConstraints();
+		gbc_label.insets = new Insets(0, 0, 5, 0);
+		gbc_label.anchor = GridBagConstraints.SOUTH;
 		gbc_label.gridx = 0;
 		gbc_label.gridy = 7;
 		panel.add(label, gbc_label);
+		
+		btnBack = new JButton("Back");
+		btnBack.addActionListener( this );
+		GridBagConstraints gbc_btnBack = new GridBagConstraints();
+		gbc_btnBack.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnBack.anchor = GridBagConstraints.SOUTH;
+		gbc_btnBack.gridx = 0;
+		gbc_btnBack.gridy = 8;
+		panel.add(btnBack, gbc_btnBack);
 		
 		JPanel panel_1 = new JPanel();
 		splitPane.setRightComponent(panel_1);
@@ -135,6 +147,11 @@ public class AVWFrame implements ActionListener {
 			lblExitThrough2.setVisible( false );
 			lblExitThrough.setVisible( true );
 			lblOutsidePic.setVisible( true );
+		}
+		else if( e.getSource() == btnBack ) {
+			mainFrame.setVisible( false );
+			TerpInfo.instance.getMainFrame().setVisible( true );
+			TerpInfo.instance.getMainFrame().requestFocus();
 		}
 	}
 	

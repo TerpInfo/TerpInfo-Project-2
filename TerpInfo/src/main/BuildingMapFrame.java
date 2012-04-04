@@ -28,6 +28,7 @@ import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import java.awt.Font;
 
 public class BuildingMapFrame implements ItemListener, ActionListener {
 
@@ -37,12 +38,12 @@ public class BuildingMapFrame implements ItemListener, ActionListener {
 	JCheckBox chckbxBathrooms;
 	JLayeredPane panel_1;
 	JButton btnBack, btnSearch, btnSecondFloor;
+	int curFloor = 1;
 	
 	public BuildingMapFrame( ) {
 		mainFrame = new JFrame( );
 		mainFrame.setUndecorated( true );	
-		mainFrame.setSize( 701, 745 );
-		mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);  
+		mainFrame.setSize( 1024, 768 );
 		mainFrame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
 		
 		JSplitPane splitPane = new JSplitPane();
@@ -53,7 +54,7 @@ public class BuildingMapFrame implements ItemListener, ActionListener {
 		splitPane.setLeftComponent(panel);
 		GridBagLayout gbl_panel = new GridBagLayout();
 		gbl_panel.columnWidths = new int[]{0, 0};
-		gbl_panel.rowHeights = new int[]{0, 33, 60, 78, 60, 60, 60, 43, 0, 45, 45, 45, 45, 45, 0, 60, 0};
+		gbl_panel.rowHeights = new int[]{0, 40, 60, 78, 60, 60, 60, 43, 0, 45, 45, 45, 45, 45, 0, 60, 0};
 		gbl_panel.columnWeights = new double[]{1.0, Double.MIN_VALUE};
 		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
@@ -66,9 +67,10 @@ public class BuildingMapFrame implements ItemListener, ActionListener {
 		panel.add(lblRoom, gbc_lblRoom);
 		
 		textField = new JTextField();
+		textField.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		GridBagConstraints gbc_textField = new GridBagConstraints();
 		gbc_textField.insets = new Insets(0, 0, 5, 0);
-		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField.fill = GridBagConstraints.BOTH;
 		gbc_textField.gridx = 0;
 		gbc_textField.gridy = 1;
 		panel.add(textField, gbc_textField);
@@ -212,7 +214,8 @@ public class BuildingMapFrame implements ItemListener, ActionListener {
 			TerpInfo.instance.getMainFrame().requestFocus();
 		}
 		else if( e.getSource() == btnSecondFloor ) {
-			//set img in drawcanvas to second floor
+			curFloor = 2;
+			k.repaint();
 		}
 		else if( e.getSource() == btnSearch ) {
 			if( textField.getText().equals( "1115" ) ) {
@@ -220,6 +223,7 @@ public class BuildingMapFrame implements ItemListener, ActionListener {
 			}
 			else {
 				JOptionPane.showMessageDialog( mainFrame, "Room not found!" );
+				k.repaint();
 			}
 		}
 	}
@@ -246,6 +250,24 @@ public class BuildingMapFrame implements ItemListener, ActionListener {
 	    public void paint(Graphics g) {
 	      Graphics2D g2D = (Graphics2D) g;
 	      
+	      if( curFloor == 1) {
+	    	  try {
+				img = ImageIO.read(BuildingMapFrame.class.getResource("/images/firstFloor.jpg"));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+				setSize( img.getWidth(), img.getHeight() );
+	      }
+	      else if (curFloor == 2 ) {
+	    	  try {
+					img = ImageIO.read(BuildingMapFrame.class.getResource("/images/secondFloor.jpg"));
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+					setSize( img.getWidth(), img.getHeight() );
+	      }
 	      g2D.drawImage( img, 0, 0, null );
 	      
 	      BasicStroke stroke = new BasicStroke(4f);
@@ -261,9 +283,13 @@ public class BuildingMapFrame implements ItemListener, ActionListener {
 	      
 	      switch( Integer.valueOf( textField.getText() ) ) {
 	      case 1115:
-		      g2D.setColor( Color.red );
-	    	  g2D.drawLine( 240, 390, 240, 290 );
-	    	  g2D.drawLine( 240, 290, 500, 290 );
+	    	  if( curFloor == 1 ) {
+			      g2D.setColor( Color.red );
+		    	  g2D.drawLine( 240, 390, 240, 290 );
+		    	  g2D.drawLine( 240, 290, 500, 290 );
+	    	  }
+	    	  break;
+	      default:
 	    	  break;
 	      }
 	      

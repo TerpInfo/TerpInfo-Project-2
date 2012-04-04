@@ -14,8 +14,8 @@ public class TerpNavFrame implements ActionListener {
 	
 	public TerpNavFrame( ) {
 		mainFrame = new JFrame( );
-		//mainFrame.setUndecorated( true );	
-		mainFrame.setSize( 400, 400 );
+		mainFrame.setUndecorated( true );		
+		mainFrame.setSize( 1024, 768 );
 		mainFrame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
 		
 		btnBack = new JButton("Back");
