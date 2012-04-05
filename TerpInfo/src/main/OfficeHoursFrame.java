@@ -6,11 +6,12 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JSplitPane;
+import javax.swing.JPanel;
 
 public class OfficeHoursFrame implements ActionListener {
 	
 	JFrame mainFrame;
-	JButton btnBack;
 	
 	public OfficeHoursFrame( ) {
 		mainFrame = new JFrame( );
@@ -18,17 +19,23 @@ public class OfficeHoursFrame implements ActionListener {
 		mainFrame.setSize( 1024, 768 );
 		mainFrame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
 		
-		btnBack = new JButton("Back");
-		btnBack.addActionListener( this );
-		mainFrame.getContentPane().add(btnBack, BorderLayout.CENTER);
+		JSplitPane splitPane = new JSplitPane();
+		splitPane.setEnabled(false);
+		mainFrame.getContentPane().add(splitPane, BorderLayout.CENTER);
+		
+		JPanel panel = new JPanel();
+		splitPane.setLeftComponent(panel);
+		
+		JPanel panel_1 = new JPanel();
+		splitPane.setRightComponent(panel_1);
 	}
 	
 	public void actionPerformed( ActionEvent e ) {
-		if( e.getSource() == btnBack ) {
+		/*if( e.getSource() == btnBack ) {
 			mainFrame.setVisible( false );
 			TerpInfo.instance.getMainFrame().setVisible( true );
 			TerpInfo.instance.getMainFrame().requestFocus();
-		}
+		}*/
 	}
 	
 	public JFrame getFrame( ){

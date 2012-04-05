@@ -1,29 +1,27 @@
 /* Todo:
  * 1. Replace the current GridBagLayout with a LayeredPane layout, nest "Back" button on the left side.
- * 2. Embed a web-browser element that will point to terpNav.
+ * 2. Embed a web-browser element that will point to terpMail.
  */
-
 
 package main;
 
-import java.awt.BorderLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
 import javax.swing.JLabel;
-import javax.swing.ImageIcon;
 
-public class TerpNavFrame implements ActionListener {
-
+public class TerpMailFrame implements ActionListener {
+	
 	JFrame mainFrame;
 	JButton btnBack;
 	
-	public TerpNavFrame( ) {
+	public TerpMailFrame( ) {
 		mainFrame = new JFrame( );
 		mainFrame.setUndecorated( true );		
 		mainFrame.setSize( 1024, 768 );
@@ -36,7 +34,7 @@ public class TerpNavFrame implements ActionListener {
 		mainFrame.getContentPane().setLayout(gridBagLayout);
 		
 		JLabel label = new JLabel("");
-		label.setIcon(new ImageIcon(TerpNavFrame.class.getResource("/images/terpNavHolder.jpg")));
+		label.setIcon(new ImageIcon(TerpMailFrame.class.getResource("/images/terpMailHolder.jpg")));
 		GridBagConstraints gbc_label = new GridBagConstraints();
 		gbc_label.anchor = GridBagConstraints.NORTH;
 		gbc_label.insets = new Insets(0, 0, 5, 0);
@@ -64,5 +62,5 @@ public class TerpNavFrame implements ActionListener {
 	public JFrame getFrame( ){
 		return mainFrame;
 	}
-	
+
 }

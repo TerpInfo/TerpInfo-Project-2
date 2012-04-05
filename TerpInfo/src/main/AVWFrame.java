@@ -1,3 +1,10 @@
+/* Todo:
+ * 1. Implement more verbose instructions.
+ * 2. Scale images properly.
+ * 3. Implement inside directions that use the sky-walk.
+ * 4. Properly format directions to use more space on the left sidebar, be more readable.
+ */
+
 package main;
 
 import java.awt.BorderLayout;
@@ -27,7 +34,6 @@ public class AVWFrame implements ActionListener {
 		mainFrame = new JFrame( );
 		mainFrame.setUndecorated( true );		
 		mainFrame.setSize( 1024, 768 );
-		//mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);  
 		mainFrame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
 		
 		JSplitPane splitPane = new JSplitPane();

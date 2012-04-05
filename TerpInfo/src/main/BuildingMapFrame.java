@@ -1,3 +1,10 @@
+/* Todo:
+ * 1. Check for floors before highlighting stuff
+ * 2. Implement third and fourth floor.
+ * 3. Create Previous floor button, move Next floor button to more appropriate place.
+ * 4. Add box around highlighting options to offset them.
+ */
+
 package main;
 
 import java.awt.BasicStroke;

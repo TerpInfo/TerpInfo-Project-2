@@ -19,7 +19,7 @@ import javax.swing.border.LineBorder;
 public class TerpInfo implements ActionListener {
 
 	public JFrame fMainFrame;
-	JFrame fEventFrame, fTerpNavFrame, fBuildingMapFrame, fOfficeHoursFrame, fAVWFrame;
+	JFrame fEventFrame, fTerpNavFrame, fBuildingMapFrame, fOfficeHoursFrame, fAVWFrame, fTerpMailFrame;
 	EventFrame fEventHelper;
 	JButton bTerpNav, bBuildingMap, bEvents, bOfficeHours, bAVW, bInternet;
 	private JLabel lQuickInfo;
@@ -36,6 +36,7 @@ public class TerpInfo implements ActionListener {
 		fBuildingMapFrame = new BuildingMapFrame( ).getFrame();
 		fOfficeHoursFrame = new OfficeHoursFrame( ).getFrame();
 		fAVWFrame = new AVWFrame( ).getFrame();
+		fTerpMailFrame = new TerpMailFrame( ).getFrame();
 		
 		fMainFrame = new JFrame( );
 		fMainFrame.setUndecorated( true );
@@ -131,7 +132,8 @@ public class TerpInfo implements ActionListener {
 			fAVWFrame.setVisible( true );
 		}
 		else if( e.getSource() == bInternet ) {
-			
+			fMainFrame.setVisible( false );
+			fTerpMailFrame.setVisible( true );
 		}
 	}
 	
