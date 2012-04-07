@@ -27,6 +27,7 @@ public class TerpInfo implements ActionListener {
 	private JLabel lblCurrentDate;
 	private JLabel lblNewLabel;
 	public static TerpInfo instance;
+	private JLabel lblTeachersCurrentlyIn;
 
 	public TerpInfo( ) {
 		fEventHelper = new EventFrame( );
@@ -39,6 +40,7 @@ public class TerpInfo implements ActionListener {
 		fTerpMailFrame = new TerpMailFrame( ).getFrame();
 		
 		fMainFrame = new JFrame( );
+		fMainFrame.getContentPane().setBackground(new Color(102, 102, 153));
 		fMainFrame.setUndecorated( true );
 		//fMainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);  		
 		fMainFrame.setSize( 1024, 768 );
@@ -56,11 +58,13 @@ public class TerpInfo implements ActionListener {
 		fMainFrame.getContentPane().add( bBuildingMap );
 		
 		JPanel timePanel = new JPanel( );
+		timePanel.setBackground(new Color(102, 102, 153));
 		timePanel.setBorder(new LineBorder(new Color(0, 0, 0)));
 		fMainFrame.getContentPane().add( timePanel );
 		timePanel.setLayout(new GridLayout(4, 1));
 		
 		lblCurrentTime = new JLabel("Current Time:");
+		lblCurrentTime.setForeground(Color.LIGHT_GRAY);
 		lblCurrentTime.setFont(new Font("Tahoma", Font.BOLD, 16));
 		timePanel.add(lblCurrentTime);
 		
@@ -70,12 +74,14 @@ public class TerpInfo implements ActionListener {
 		timePanel.add( clock );
 		
 		lblCurrentDate = new JLabel("Current Date:");
+		lblCurrentDate.setForeground(Color.LIGHT_GRAY);
 		lblCurrentDate.setFont(new Font("Tahoma", Font.BOLD, 16));
 		timePanel.add(lblCurrentDate);
 		
 		SimpleDateFormat ft = new SimpleDateFormat ("E dd/MM/yyyy");
 		lblNewLabel = new JLabel(ft.format( new Date( ) ) );
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setForeground(Color.LIGHT_GRAY);
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 30));
 		timePanel.add(lblNewLabel);
 		
@@ -96,8 +102,12 @@ public class TerpInfo implements ActionListener {
 		fMainFrame.getContentPane().add( bAVW );
 		
 		bInternet = new JButton( "TerpMail" );
+		bInternet.setIcon(new ImageIcon(TerpInfo.class.getResource("/images/terpMailIcon.jpg")));
 		bInternet.addActionListener( this );
 		fMainFrame.getContentPane().add( bInternet );
+		
+		lblTeachersCurrentlyIn = new JLabel("Teachers Currently In");
+		fMainFrame.getContentPane().add(lblTeachersCurrentlyIn);
 
 
 		fMainFrame.setVisible( true );
@@ -149,6 +159,7 @@ class ClockLabel extends JLabel implements ActionListener {
 
 	public ClockLabel() {
 		super( "00:00:00 AM" );
+		setForeground( Color.LIGHT_GRAY );
 		setText(ft.format( new Date( ) ) );
 		Timer t = new Timer(1000, this);
 		t.start();

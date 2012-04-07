@@ -17,6 +17,7 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
+import java.awt.Color;
 
 public class TerpNavFrame implements ActionListener {
 
@@ -25,6 +26,7 @@ public class TerpNavFrame implements ActionListener {
 	
 	public TerpNavFrame( ) {
 		mainFrame = new JFrame( );
+		mainFrame.getContentPane().setBackground(new Color(102, 102, 153));
 		mainFrame.setUndecorated( true );		
 		mainFrame.setSize( 1024, 768 );
 		mainFrame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );

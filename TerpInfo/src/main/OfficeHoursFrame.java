@@ -8,6 +8,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JSplitPane;
 import javax.swing.JPanel;
+import java.awt.GridBagLayout;
+import java.awt.Color;
 
 public class OfficeHoursFrame implements ActionListener {
 	
@@ -25,8 +27,15 @@ public class OfficeHoursFrame implements ActionListener {
 		
 		JPanel panel = new JPanel();
 		splitPane.setLeftComponent(panel);
+		GridBagLayout gbl_panel = new GridBagLayout();
+		gbl_panel.columnWidths = new int[]{0, 0};
+		gbl_panel.rowHeights = new int[]{0, 0, 0, 0};
+		gbl_panel.columnWeights = new double[]{0.0, Double.MIN_VALUE};
+		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
+		panel.setLayout(gbl_panel);
 		
 		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(new Color(102, 102, 153));
 		splitPane.setRightComponent(panel_1);
 	}
 	

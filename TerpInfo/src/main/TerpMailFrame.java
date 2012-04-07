@@ -15,6 +15,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import java.awt.Color;
 
 public class TerpMailFrame implements ActionListener {
 	
@@ -23,6 +24,7 @@ public class TerpMailFrame implements ActionListener {
 	
 	public TerpMailFrame( ) {
 		mainFrame = new JFrame( );
+		mainFrame.getContentPane().setBackground(new Color(102, 102, 153));
 		mainFrame.setUndecorated( true );		
 		mainFrame.setSize( 1024, 768 );
 		mainFrame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
