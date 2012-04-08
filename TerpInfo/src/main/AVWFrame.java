@@ -33,6 +33,7 @@ public class AVWFrame implements ActionListener {
 	private JPanel panel_3;
 	private JLabel lblExitThrough;
 	private JPanel panel_2;
+	private JLabel lblPleaseSelectA;
 
 	public AVWFrame( ) {
 		mainFrame = new JFrame( );
@@ -138,6 +139,12 @@ public class AVWFrame implements ActionListener {
 		lblOutsidePic.setVisible( false );
 		lblOutsidePic.setIcon(new ImageIcon(AVWFrame.class.getResource("/images/avwoutside.jpg")));
 		panel_1.add(lblOutsidePic, BorderLayout.CENTER);
+		
+		lblPleaseSelectA = new JLabel("Please select a route option");
+		lblPleaseSelectA.setForeground(Color.LIGHT_GRAY);
+		lblPleaseSelectA.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblPleaseSelectA.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_1.add(lblPleaseSelectA, BorderLayout.NORTH);
 	}
 
 	public void actionPerformed( ActionEvent e ) {
@@ -145,6 +152,7 @@ public class AVWFrame implements ActionListener {
 					}
 		else if (e.getSource() == btnOutside ) { 
 			lblOutsidePic.setVisible( true );
+			lblPleaseSelectA.setVisible( false );
 			lblExitThrough.setText("<html> <p>1. Exit through main door.</p> <br/>\r\n<p> 2. Walk straight ahead to streeet. </p> <br/>\r\n<p> 3. Turn right before crossing. </p> <br/>\r\n<p> 4. Turn right into first entrance. </p> <br/>\r\n<p> 5. Follow walkway around building. </p> <br/>\r\n<p> 6. Entrance to AVW will be on right. </p> <br/>\r\n</html>");
 		}
 		else if( e.getSource() == btnBack ) {

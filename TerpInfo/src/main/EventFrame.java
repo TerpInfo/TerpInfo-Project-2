@@ -20,6 +20,11 @@ import javax.swing.JSplitPane;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
+import javax.swing.JList;
+import javax.swing.AbstractListModel;
+import javax.swing.ListSelectionModel;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 
 public class EventFrame implements ItemListener, ActionListener {
 
@@ -194,9 +199,23 @@ public class EventFrame implements ItemListener, ActionListener {
 		gbc_btnBack.gridy = 6;
 		panel.add(btnBack, gbc_btnBack);
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(new Color(102, 102, 153));
-		splitPane.setRightComponent(panel_1);
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		splitPane.setRightComponent(scrollPane);
+		
+		JList list = new JList();
+		list.setModel(new AbstractListModel() {
+			String[] values = new String[] {"<html><h2> CANDY </h2> <br/> I like it<hr></html>", "<html><h2> CANDY </h2> <br/> I like it<hr></html>", "<html><h2> CANDY </h2> <br/> I like it<hr></html>", "<html><h2> CANDY </h2> <br/> I like it<hr></html>", "<html><h2> CANDY </h2> <br/> I like it<hr></html>", "<html><h2> CANDY </h2> <br/> I like it<hr></html>", "<html><h2> CANDY </h2> <br/> I like it<hr></html>", "<html><h2> CANDY </h2> <br/> I like it<hr></html>", "<html><h2> CANDY </h2> <br/> I like it<hr></html>", "<html><h2> CANDY </h2> <br/> I like it<hr></html>", "<html><h2> CANDY </h2> <br/> I like it<hr></html>", "<html><h2> CANDY2 </h2> <br/> I like it<hr></html>"};
+			public int getSize() {
+				return values.length;
+			}
+			public Object getElementAt(int index) {
+				return values[index];
+			}
+		});
+		list.setToolTipText("");
+		scrollPane.setViewportView(list);
 	}
 	
 	public void itemStateChanged( ItemEvent e ) {

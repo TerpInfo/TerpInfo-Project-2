@@ -86,6 +86,7 @@ public class TerpInfo implements ActionListener {
 		timePanel.add(lblNewLabel);
 		
 		bEvents = new JButton( "Events" );
+		bEvents.setIcon(new ImageIcon(TerpInfo.class.getResource("/images/eventList.jpg")));
 		bEvents.addActionListener( this );
 		fMainFrame.getContentPane().add( bEvents );
 
