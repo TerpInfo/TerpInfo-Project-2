@@ -10,21 +10,25 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.net.URL;
+import java.util.Scanner;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
-import javax.swing.JList;
-import javax.swing.AbstractListModel;
-import javax.swing.ListSelectionModel;
-import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
 
 public class EventFrame implements ItemListener, ActionListener {
 
@@ -204,17 +208,27 @@ public class EventFrame implements ItemListener, ActionListener {
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		splitPane.setRightComponent(scrollPane);
 		
-		JList list = new JList();
-		list.setModel(new AbstractListModel() {
-			String[] values = new String[] {"<html><h2> CANDY </h2> <br/> I like it<hr></html>", "<html><h2> CANDY </h2> <br/> I like it<hr></html>", "<html><h2> CANDY </h2> <br/> I like it<hr></html>", "<html><h2> CANDY </h2> <br/> I like it<hr></html>", "<html><h2> CANDY </h2> <br/> I like it<hr></html>", "<html><h2> CANDY </h2> <br/> I like it<hr></html>", "<html><h2> CANDY </h2> <br/> I like it<hr></html>", "<html><h2> CANDY </h2> <br/> I like it<hr></html>", "<html><h2> CANDY </h2> <br/> I like it<hr></html>", "<html><h2> CANDY </h2> <br/> I like it<hr></html>", "<html><h2> CANDY </h2> <br/> I like it<hr></html>", "<html><h2> CANDY2 </h2> <br/> I like it<hr></html>"};
-			public int getSize() {
-				return values.length;
+		DefaultListModel<String> model = new DefaultListModel<String>();
+		JList<String> list = new JList<String>( model);
+		
+		String temp = new File("").getAbsolutePath();
+		temp += "\\res\\eventshappening.txt";
+		
+		int curEle = 0;
+		String event;
+		Scanner f;
+		
+		try {
+			f = new Scanner( new File( temp ) ).useDelimiter( "\n");
+			while( f.hasNext() ) {
+				event = f.next();
+				model.add( curEle, event);
+				curEle++;
 			}
-			public Object getElementAt(int index) {
-				return values[index];
-			}
-		});
-		list.setToolTipText("");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+	
 		scrollPane.setViewportView(list);
 	}
 	
@@ -226,6 +240,8 @@ public class EventFrame implements ItemListener, ActionListener {
 			else {	
 				textField_1.setEditable( false );
 			}
+			
+			
 		}
 	}
 	

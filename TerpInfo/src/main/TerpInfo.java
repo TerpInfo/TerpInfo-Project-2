@@ -15,6 +15,11 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 import javax.swing.border.LineBorder;
+import javax.swing.JList;
+import javax.swing.border.TitledBorder;
+import javax.swing.UIManager;
+import javax.swing.AbstractListModel;
+import javax.swing.ListSelectionModel;
 
 public class TerpInfo implements ActionListener {
 
@@ -22,12 +27,13 @@ public class TerpInfo implements ActionListener {
 	JFrame fEventFrame, fTerpNavFrame, fBuildingMapFrame, fOfficeHoursFrame, fAVWFrame, fTerpMailFrame;
 	EventFrame fEventHelper;
 	JButton bTerpNav, bBuildingMap, bEvents, bOfficeHours, bAVW, bInternet;
-	private JLabel lQuickInfo;
 	private JLabel lblCurrentTime;
 	private JLabel lblCurrentDate;
 	private JLabel lblNewLabel;
 	public static TerpInfo instance;
-	private JLabel lblTeachersCurrentlyIn;
+	private JList list;
+	private JPanel panel;
+	private JLabel lblNewLabel_1;
 
 	public TerpInfo( ) {
 		fEventHelper = new EventFrame( );
@@ -91,15 +97,31 @@ public class TerpInfo implements ActionListener {
 		fMainFrame.getContentPane().add( bEvents );
 
 		bOfficeHours = new JButton( "Office Hours" );
+		bOfficeHours.setIcon(new ImageIcon(TerpInfo.class.getResource("/images/officedoor.jpg")));
 		bOfficeHours.addActionListener( this );
 		fMainFrame.getContentPane().add( bOfficeHours );
-		
-		lQuickInfo = new JLabel("Quick Info");
-		fMainFrame.getContentPane().add(lQuickInfo);
 				
 		bAVW = new JButton( "Directions to AVW" );
 		bAVW.setIcon(new ImageIcon(TerpInfo.class.getResource("/images/AVW.jpg")));
 		bAVW.addActionListener( this );
+		
+		panel = new JPanel();
+		panel.setBackground(new Color(102, 102, 153));
+		panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Events", TitledBorder.LEADING, TitledBorder.TOP, null, Color.LIGHT_GRAY));
+		fMainFrame.getContentPane().add(panel);
+		
+		list = new JList();
+		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		list.setModel(new AbstractListModel() {
+			String[] values = new String[] {"<html><pre style=\"font-size:120%;font-family:Tahoma Bold\">Sample Event\t \t  \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</pre>\t</html>", "<html><pre style=\"font-size:120%;font-family:Tahoma Bold\">Sample Event\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</pre>\t</html>", "<html><pre style=\"font-size:120%;font-family:Tahoma Bold\">Sample Event\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</pre>\t</html>", "<html><pre style=\"font-size:120%;font-family:Tahoma Bold\">Sample Event\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</pre>\t</html>", "<html><pre style=\"font-size:120%;font-family:Tahoma Bold\">Sample Event\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</pre>\t</html>", "<html><pre style=\"font-size:120%;font-family:Tahoma Bold\">Sample Event\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</pre>\t</html>"};
+			public int getSize() {
+				return values.length;
+			}
+			public Object getElementAt(int index) {
+				return values[index];
+			}
+		});
+		panel.add(list);
 		fMainFrame.getContentPane().add( bAVW );
 		
 		bInternet = new JButton( "TerpMail" );
@@ -107,8 +129,12 @@ public class TerpInfo implements ActionListener {
 		bInternet.addActionListener( this );
 		fMainFrame.getContentPane().add( bInternet );
 		
-		lblTeachersCurrentlyIn = new JLabel("Teachers Currently In");
-		fMainFrame.getContentPane().add(lblTeachersCurrentlyIn);
+		lblNewLabel_1 = new JLabel("<html>Build: TerpInfo v0.1<br/>\r\nImages courtesy of UMD, <br/>\r\nKookkai_nak / FreeDigitalPhotos.net <br/>\r\nhttp://dailyserving.com<br/>\r\nBy: Nathan Tucker, Nathan Wright, <br/>\r\nSam Martin, Sherwin Farhang</html>");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 9));
+		lblNewLabel_1.setForeground(Color.LIGHT_GRAY);
+		lblNewLabel_1.setVerticalAlignment(SwingConstants.BOTTOM);
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.RIGHT);
+		fMainFrame.getContentPane().add(lblNewLabel_1);
 
 
 		fMainFrame.setVisible( true );

@@ -336,16 +336,18 @@ public class BuildingMapFrame implements ItemListener, ActionListener {
 	    	  }
 	      }
 	      
-	      switch( Integer.valueOf( textField.getText() ) ) {
-	      case 1115:
-	    	  if( curFloor == 1 ) {
-			      g2D.setColor( Color.red );
-		    	  g2D.drawLine( 250, 330, 250, 480 );
-		    	  g2D.drawLine( 250, 330, 550, 330 );
-	    	  }
-	    	  break;
-	      default:
-	    	  break;
+	      if( !textField.getText().isEmpty() ) {
+		      switch( Integer.valueOf( textField.getText() ) ) {
+		      case 1115:
+		    	  if( curFloor == 1 ) {
+				      g2D.setColor( Color.red );
+			    	  g2D.drawLine( 250, 330, 250, 480 );
+			    	  g2D.drawLine( 250, 330, 550, 330 );
+		    	  }
+		    	  break;
+		      default:
+		    	  break;
+		      }
 	      }
 	      
 	    }
